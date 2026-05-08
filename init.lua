@@ -413,6 +413,9 @@ do
   vim.api.nvim_set_hl(0, 'FloatBorder', {bg = 'none'})
   vim.api.nvim_set_hl(0, 'Pmenu', {bg = 'none'})
 
+  -- Set comments with a different more legible color
+  vim.api.nvim_set_hl(0, 'Comment', {fg = '#A0A0A0'})
+
 
 
   -- Better Around/Inside textobjects
