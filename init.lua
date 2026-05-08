@@ -111,7 +111,7 @@ do
   vim.o.number = true
   -- You can also add relative line numbers, to help with jumping.
   --  Experiment for yourself to see if you like it!
-  -- vim.o.relativenumber = true
+  vim.o.relativenumber = true
 
   -- Enable mouse mode, can be useful for resizing splits for example!
   vim.o.mouse = 'a'
@@ -374,6 +374,7 @@ do
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+      { '<leader>r', group = '[R]un', mode = { 'n', 'v' } }, -- Enable <leader>r to run languages
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
   }
@@ -404,6 +405,15 @@ do
   -- [[ mini.nvim ]]
   --  A collection of various small independent plugins/modules
   vim.pack.add { gh 'nvim-mini/mini.nvim' }
+
+  -- Make background transparent (maybe hack??)
+
+  vim.api.nvim_set_hl(0, 'Normal', {bg = 'none'})
+  vim.api.nvim_set_hl(0, 'NormalFloat', {bg = 'none'})
+  vim.api.nvim_set_hl(0, 'FloatBorder', {bg = 'none'})
+  vim.api.nvim_set_hl(0, 'Pmenu', {bg = 'none'})
+
+
 
   -- Better Around/Inside textobjects
   --
@@ -778,7 +788,7 @@ do
       -- You can specify filetypes to autoformat on save here:
       local enabled_filetypes = {
         -- lua = true,
-        -- python = true,
+        python = true,
       }
       if enabled_filetypes[vim.bo[bufnr].filetype] then
         return { timeout_ms = 500 }
@@ -793,7 +803,7 @@ do
     formatters_by_ft = {
       -- rust = { 'rustfmt' },
       -- Conform can also run multiple formatters sequentially
-      -- python = { "isort", "black" },
+      python = { "isort", "black" },
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
@@ -976,3 +986,9 @@ end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+--
+--
+-- My custom keybindings:
+
+  vim.keymap.set('n', '<leader>rp', ':w<CR>:!python -X utf8 %<CR>', { desc = '[R]un [P]ython' })
